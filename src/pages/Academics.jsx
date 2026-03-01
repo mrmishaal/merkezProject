@@ -1,7 +1,7 @@
-﻿import Card from '../components/Card';
+import Card from '../components/Card';
 import SectionHeading from '../components/SectionHeading';
 import Seo from '../components/Seo';
-import { academicsGallery, photos, programsList } from '../assets/siteData';
+import { academicsGallery, pageBackgrounds, photos, programsList } from '../assets/siteData';
 import { useLanguage } from '../context/LanguageContext';
 
 function Academics() {
@@ -9,13 +9,15 @@ function Academics() {
   const translatedPrograms = t('academics.programs', []);
 
   return (
-    <section className="py-16">
+    <section className="relative isolate py-16">
       <Seo
         title={t('nav.academics')}
         description="Explore kindergarten, primary, and secondary academic programs at Merkezel Burhan School."
         path="/academics"
       />
-      <div className="container-shell">
+      <img src={pageBackgrounds.academics} alt="" aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover opacity-60" />
+      <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-b from-white/35 via-white/45 to-white/60" />
+      <div className="relative z-10 container-shell">
         <SectionHeading eyebrow={t('academics.eyebrow')} title={t('academics.title')} description={t('academics.desc')} />
 
         <img
@@ -65,3 +67,6 @@ function Academics() {
 }
 
 export default Academics;
+
+
+

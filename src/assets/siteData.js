@@ -9,6 +9,12 @@ import academicKg from './photos/KG/photo_30_2026-02-28_04-12-41.jpg';
 import academicLab from './photos/labulatories/photo_22_2026-02-28_04-12-41.jpg';
 import academicLibrary from './photos/library/photo_87_2026-02-28_04-12-00.jpg';
 import academicExam from './photos/studentsAtExam/photo_31_2026-02-28_04-11-59.jpg';
+import bgUnnamed from './photos/generalPhotos/unnamed.jpg';
+import bg040850 from './photos/generalPhotos/photo_2026-02-28_04-08-50.jpg';
+import bg040750 from './photos/generalPhotos/photo_3_2026-02-28_04-07-50.jpg';
+import bg013401 from './photos/generalPhotos/photo_2026-02-28_01-34-01.jpg';
+import bg041057 from './photos/generalPhotos/photo_53_2026-02-28_04-10-57.jpg';
+import bg01057 from './photos/generalPhotos/photo_1_2026-02-28_04-10-57.jpg';
 
 export const telegramUrl = 'https://t.me/merkezelburhanschool';
 
@@ -18,6 +24,15 @@ export const photos = {
   about,
   programs,
   news: [news1, news2, news3],
+};
+
+export const pageBackgrounds = {
+  about: bgUnnamed,
+  academics: bg040850,
+  events: bg040750,
+  news: bg013401,
+  gallery: bg041057,
+  contact: bg01057,
 };
 
 export const stats = [

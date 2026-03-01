@@ -2,7 +2,7 @@ import Button from '../components/Button';
 import Card from '../components/Card';
 import SectionHeading from '../components/SectionHeading';
 import Seo from '../components/Seo';
-import { academicsGallery, facilities, photos, programsList } from '../assets/siteData';
+import { academicsGallery, facilities, pageBackgrounds, photos, programsList } from '../assets/siteData';
 import { useLanguage } from '../context/LanguageContext';
 
 function About() {
@@ -11,14 +11,16 @@ function About() {
   const activePrograms = translatedPrograms.length ? translatedPrograms : programsList;
 
   return (
-    <section className="py-16">
+    <section className="relative isolate py-16">
       <Seo
         title={t('nav.about')}
         description="Learn about Merkezel Burhan School's mission, values, academics, and facilities in Dessie."
         path="/about"
       />
+      <img src={pageBackgrounds.about} alt="" aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover opacity-60" />
+      <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-b from-white/35 via-white/45 to-white/60" />
 
-      <div className="container-shell space-y-16">
+      <div className="relative z-10 container-shell space-y-16">
         <div className="grid items-center gap-10 lg:grid-cols-2">
           <img src={photos.about} alt={t('about.title')} className="rounded-xl2 shadow-soft" loading="lazy" decoding="async" />
           <div>
@@ -84,3 +86,6 @@ function About() {
 }
 
 export default About;
+
+
+

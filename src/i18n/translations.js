@@ -122,6 +122,33 @@
       cardTitle: 'Join Our Telegram Channel',
       cardText: 'Parents and community members can receive official announcements instantly.',
       button: 'Join Telegram',
+      callNow: 'Call Now',
+      emailNow: 'Send Email',
+      mapTitle: 'Find Us on the Map',
+      mapFrameTitle: 'Merkezel Burhan School location map',
+      directionsTitle: 'How to Visit Us',
+      directionsText: 'The campus is located in Dessie with easy road access for families and visitors.',
+      directions: [
+        'Use the school name in Google Maps: Merkezel Burhan School, Dessie',
+        'Public transport and school buses stop near the main gate',
+        'Visitor support is available at the administration office during work hours',
+      ],
+      openMap: 'Open Directions',
+      faqTitle: 'Frequently Asked Questions',
+      faqItems: [
+        {
+          q: 'What are the office hours?',
+          a: 'Our office is open Monday to Friday from 8:00 AM to 5:00 PM.',
+        },
+        {
+          q: 'Can parents visit the school campus?',
+          a: 'Yes. Parents are welcome during office hours after checking in at the administration office.',
+        },
+        {
+          q: 'How can I receive school announcements quickly?',
+          a: 'Join our official Telegram channel to get immediate updates and notices.',
+        },
+      ],
     },
     telegram: {
       eyebrow: 'Telegram',
@@ -292,6 +319,33 @@
       cardTitle: 'ቴሌግራም ቻናል ይቀላቀሉ',
       cardText: 'ወላጆች እና ማህበረሰብ አባላት ኦፊሴላዊ መረጃዎችን ፈጣን ሊቀበሉ ይችላሉ።',
       button: 'ቴሌግራም ይቀላቀሉ',
+      callNow: 'አሁን ይደውሉ',
+      emailNow: 'ኢሜይል ይላኩ',
+      mapTitle: 'በካርታ ያግኙን',
+      mapFrameTitle: 'የመርከዘል ቡርሃን ትምህርት ቤት ካርታ',
+      directionsTitle: 'እንዴት ይደርሱ',
+      directionsText: 'ካምፓሱ በደሴ ከተማ ውስጥ በቀላሉ ሊደረስበት በሚችል መንገድ ላይ ይገኛል።',
+      directions: [
+        'በGoogle Maps ውስጥ የትምህርት ቤቱን ስም ይፈልጉ፡ Merkezel Burhan School, Dessie',
+        'የህዝብ መጓጓዣ እና የትምህርት ቤት አውቶቡሶች ከዋናው መግቢያ አጠገብ ይቆማሉ',
+        'በስራ ሰዓት የጎብኚ አገልግሎት በአስተዳደር ቢሮ ይገኛል',
+      ],
+      openMap: 'መንገድ ይክፈቱ',
+      faqTitle: 'ተደጋጋሚ ጥያቄዎች',
+      faqItems: [
+        {
+          q: 'የቢሮ ሰዓታችሁ ስንት ነው?',
+          a: 'ቢሯችን ከሰኞ እስከ አርብ ከ8:00 ጠዋት እስከ 5:00 ከሰዓት ክፍት ነው።',
+        },
+        {
+          q: 'ወላጆች ካምፓሱን ሊጎበኙ ይችላሉ?',
+          a: 'አዎ። ወላጆች በስራ ሰዓት በአስተዳደር ቢሮ ምዝገባ ካደረጉ በኋላ ሊጎበኙ ይችላሉ።',
+        },
+        {
+          q: 'የትምህርት ቤት ማስታወቂያዎችን በፍጥነት እንዴት ልቀበል?',
+          a: 'ፈጣን ማሻሻያዎችን ለማግኘት ኦፊሴላዊ የቴሌግራም ቻናላችንን ይቀላቀሉ።',
+        },
+      ],
     },
     telegram: {
       eyebrow: 'ቴሌግራም',

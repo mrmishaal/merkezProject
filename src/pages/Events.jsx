@@ -1,7 +1,7 @@
-﻿import Card from '../components/Card';
+import Card from '../components/Card';
 import SectionHeading from '../components/SectionHeading';
 import Seo from '../components/Seo';
-import { eventsItems } from '../assets/siteData';
+import { eventsItems, pageBackgrounds } from '../assets/siteData';
 import { useLanguage } from '../context/LanguageContext';
 
 function Events() {
@@ -10,13 +10,15 @@ function Events() {
   const past = eventsItems.filter((event) => event.type === 'past');
 
   return (
-    <section className="py-16">
+    <section className="relative isolate py-16">
       <Seo
         title={t('nav.events')}
         description="View upcoming and past events from Merkezel Burhan School's academic and community calendar."
         path="/events"
       />
-      <div className="container-shell">
+      <img src={pageBackgrounds.events} alt="" aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover opacity-60" />
+      <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-b from-white/35 via-white/45 to-white/60" />
+      <div className="relative z-10 container-shell">
         <SectionHeading eyebrow={t('events.eyebrow')} title={t('events.title')} description={t('events.desc')} />
 
         <h2 className="mb-5 text-2xl font-bold text-primary">{t('events.upcoming')}</h2>
@@ -46,3 +48,5 @@ function Events() {
 }
 
 export default Events;
+
+

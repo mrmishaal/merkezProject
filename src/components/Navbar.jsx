@@ -17,7 +17,6 @@ function Navbar() {
     { label: t('nav.events'), to: '/events' },
     { label: t('nav.news'), to: '/news' },
     { label: t('nav.gallery'), to: '/gallery' },
-    { label: t('nav.downloads'), to: '/downloads' },
     { label: t('nav.contact'), to: '/contact' },
   ];
 
@@ -50,15 +49,6 @@ function Navbar() {
         </ul>
 
         <div className="flex items-center gap-2 md:gap-3">
-          <a
-            href={telegramUrl}
-            target="_blank"
-            rel="noreferrer noopener"
-            className="hidden rounded-xl bg-accent px-3 py-2 text-xs font-semibold text-slate-900 transition hover:-translate-y-0.5 hover:bg-amber-500 md:inline-flex"
-          >
-            {t('nav.joinTelegram')}
-          </a>
-
           <button
             type="button"
             className="hidden rounded-xl border border-slate-300 px-3 py-2 text-xs font-semibold text-slate-700 transition hover:border-primary hover:text-primary md:inline-flex"
@@ -108,13 +98,13 @@ function Navbar() {
           open ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none -translate-y-3 opacity-0'
         }`}
       >
-        <ul className="container-shell max-h-[75vh] overflow-y-auto py-4">
+        <ul className="container-shell py-4">
           <li className="mb-3 flex items-center justify-between gap-3 px-1">
             <a
               href={telegramUrl}
               target="_blank"
               rel="noreferrer noopener"
-              className="inline-flex h-9 items-center gap-1.5 rounded-lg bg-[#229ED9] px-3 text-xs font-semibold text-white transition hover:bg-[#1c8abd]"
+              className="inline-flex h-10 items-center gap-1.5 rounded-lg bg-[#229ED9] px-3.5 text-sm font-semibold text-white transition hover:bg-[#1c8abd]"
             >
               <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M20.12 3.31a1.2 1.2 0 0 0-1.23-.16L3.15 9.17a1.2 1.2 0 0 0 .06 2.26l3.9 1.35 1.47 4.67a1.2 1.2 0 0 0 2.17.25l2.16-3.01 3.74 2.73a1.2 1.2 0 0 0 1.89-.74L21.3 4.46a1.2 1.2 0 0 0-1.18-1.15Zm-9.41 11.23-.58 1.6-.8-2.55 7.2-6.62-5.82 7.57Z" />
@@ -124,7 +114,7 @@ function Navbar() {
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="inline-flex h-9 items-center gap-2 rounded-lg border border-slate-300 px-3 text-xs font-semibold text-slate-600 transition hover:border-primary hover:text-primary"
+              className="inline-flex h-10 items-center gap-2 rounded-lg border border-slate-300 px-3.5 text-sm font-semibold text-slate-600 transition hover:border-primary hover:text-primary"
               aria-label={t('nav.closeMenu')}
             >
               <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -137,7 +127,7 @@ function Navbar() {
             <button
               type="button"
               onClick={toggleLanguage}
-              className="w-full rounded-xl border border-slate-300 px-4 py-3 text-left text-sm font-semibold text-slate-700 transition hover:border-primary hover:text-primary"
+              className="w-full rounded-xl border border-slate-300 px-4 py-3.5 text-left text-base font-semibold text-slate-700 transition hover:border-primary hover:text-primary"
             >
               {t('nav.language')}: {lang === 'en' ? 'አማ' : 'EN'}
             </button>
@@ -147,7 +137,7 @@ function Navbar() {
               <NavLink
                 to={link.to}
                 className={({ isActive }) =>
-                  `block rounded-xl px-4 py-3 text-sm font-semibold transition ${
+                  `block rounded-xl px-4 py-3.5 text-base font-semibold transition ${
                     isActive ? 'bg-blue-50 text-primary' : 'text-slate-700 hover:bg-slate-100'
                   }`
                 }

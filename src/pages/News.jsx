@@ -1,8 +1,8 @@
-﻿import Button from '../components/Button';
+import Button from '../components/Button';
 import Card from '../components/Card';
 import SectionHeading from '../components/SectionHeading';
 import Seo from '../components/Seo';
-import { newsItems } from '../assets/siteData';
+import { newsItems, pageBackgrounds } from '../assets/siteData';
 import { useLanguage } from '../context/LanguageContext';
 
 function News() {
@@ -10,13 +10,15 @@ function News() {
   const translatedNews = t('news.items', []);
 
   return (
-    <section className="py-16">
+    <section className="relative isolate py-16">
       <Seo
         title={t('nav.news')}
         description="Read the latest school news, events, and student achievements from Merkezel Burhan School."
         path="/news"
       />
-      <div className="container-shell">
+      <img src={pageBackgrounds.news} alt="" aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover opacity-60" />
+      <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-b from-white/35 via-white/45 to-white/60" />
+      <div className="relative z-10 container-shell">
         <SectionHeading eyebrow={t('news.eyebrow')} title={t('news.title')} description={t('news.desc')} />
         <div className="grid gap-7 md:grid-cols-2 lg:grid-cols-3">
           {newsItems.map((item, index) => {
@@ -45,3 +47,6 @@ function News() {
 }
 
 export default News;
+
+
+

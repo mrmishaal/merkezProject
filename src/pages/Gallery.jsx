@@ -1,8 +1,9 @@
-﻿import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import SectionHeading from '../components/SectionHeading';
 import Seo from '../components/Seo';
 import { useLanguage } from '../context/LanguageContext';
+import { pageBackgrounds } from '../assets/siteData';
 
 const allPhotoModules = import.meta.glob('../assets/photos/**/*.{jpg,jpeg,png,JPG,JPEG,PNG}', {
   eager: true,
@@ -134,17 +135,19 @@ function Gallery() {
   const activePhoto = activeIndex !== null ? visiblePhotos[activeIndex] : null;
 
   return (
-    <section className="py-16">
+    <section className="relative isolate py-16">
       <Seo
         title={t('nav.gallery')}
         description="Explore categorized photos of Merkezel Burhan School activities, campus life, and student achievements."
         path={categorySlug ? `/gallery/${categorySlug}` : '/gallery'}
       />
 
-      <div className="container-shell">
+      <img src={pageBackgrounds.gallery} alt="" aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover opacity-60" />
+      <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-b from-white/35 via-white/45 to-white/60" />
+      <div className="relative z-10 container-shell">
         <SectionHeading eyebrow={t('gallery.eyebrow')} title={t('gallery.title')} description={t('gallery.desc')} />
 
-        <div className="mb-4 hidden sm:block lg:hidden">
+        <div className="hidden">
           <div className="rounded-xl2 border border-slate-200/90 bg-white/95 p-3 shadow-soft backdrop-blur">
             <div className="mb-3 flex items-start justify-between gap-3">
               <div>
@@ -201,7 +204,7 @@ function Gallery() {
         <button
           type="button"
           onClick={() => setIsMobileFilterOpen(true)}
-          className="fixed bottom-6 left-4 z-40 inline-flex max-w-[82vw] items-center gap-2 rounded-full border border-primary/25 bg-white px-3.5 py-2 text-sm font-semibold text-primary shadow-[0_14px_26px_rgba(15,23,42,0.22)] transition hover:-translate-y-0.5 hover:border-primary sm:hidden"
+          className="fixed bottom-6 left-4 z-40 inline-flex max-w-[82vw] items-center gap-2 rounded-full border border-primary/25 bg-white px-3.5 py-2 text-sm font-semibold text-primary shadow-[0_14px_26px_rgba(15,23,42,0.22)] transition hover:-translate-y-0.5 hover:border-primary lg:hidden"
           aria-haspopup="dialog"
           aria-label="Open gallery category filter"
         >
@@ -213,7 +216,7 @@ function Gallery() {
         </button>
 
         {isMobileFilterOpen ? (
-          <div className="fixed inset-0 z-[110] sm:hidden">
+          <div className="fixed inset-0 z-[110] lg:hidden">
             <button
               type="button"
               className="absolute inset-0 bg-slate-900/55"
@@ -348,17 +351,6 @@ function Gallery() {
         <div className="fixed inset-0 z-[140] flex items-center justify-center bg-slate-950/92 p-4">
           <button type="button" className="absolute inset-0" aria-label={t('gallery.close')} onClick={closeImage} />
 
-          <div className="absolute right-4 top-4 z-[151]">
-            <button
-              type="button"
-              className="inline-flex h-10 min-w-10 items-center justify-center rounded-full bg-white px-3 text-sm font-semibold text-slate-900 shadow-soft transition hover:bg-slate-100"
-              onClick={closeImage}
-              aria-label={t('gallery.close')}
-            >
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-
           <div className="relative z-[141] max-h-[90vh] max-w-full overflow-auto rounded-xl2">
             <img
               src={activePhoto.src}
@@ -371,17 +363,28 @@ function Gallery() {
             />
           </div>
 
-          <a
-            href={activePhoto.src}
-            download
-            className="absolute bottom-5 left-1/2 z-[151] inline-flex -translate-x-1/2 items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-soft transition hover:bg-slate-100"
-            aria-label={t('downloads.button')}
-          >
-            <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true">
-              <path d="M12 3v11m0 0 4-4m-4 4-4-4M4 17v2h16v-2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            {t('downloads.button')}
-          </a>
+          <div className="absolute bottom-8 left-1/2 z-[151] flex -translate-x-1/2 items-center gap-3">
+            <button
+              type="button"
+              className="inline-flex h-10 items-center justify-center rounded-full bg-white px-4 text-sm font-semibold text-slate-900 shadow-soft transition hover:bg-slate-100"
+              onClick={closeImage}
+              aria-label={t('gallery.close')}
+            >
+              {t('gallery.close')}
+            </button>
+
+            <a
+              href={activePhoto.src}
+              download
+              className="inline-flex h-10 items-center gap-2 rounded-full bg-white px-4 text-sm font-semibold text-slate-900 shadow-soft transition hover:bg-slate-100"
+              aria-label={t('downloads.button')}
+            >
+              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true">
+                <path d="M12 3v11m0 0 4-4m-4 4-4-4M4 17v2h16v-2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              {t('downloads.button')}
+            </a>
+          </div>
         </div>
       )}
     </section>
@@ -389,4 +392,7 @@ function Gallery() {
 }
 
 export default Gallery;
+
+
+
 
