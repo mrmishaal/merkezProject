@@ -70,7 +70,7 @@ function Navbar() {
 
           <button
             type="button"
-            className={`relative inline-flex h-11 w-11 items-center justify-center rounded-xl border transition-all duration-300 md:hidden ${
+            className={`relative inline-flex h-11 w-11 items-center justify-center rounded-xl border transition-all duration-300 xl:hidden ${
               open
                 ? 'border-primary bg-primary text-white shadow-soft'
                 : 'border-slate-300 bg-white text-slate-700 hover:border-primary hover:text-primary'
@@ -97,20 +97,30 @@ function Navbar() {
         aria-label="Close mobile menu backdrop"
         tabIndex={open ? 0 : -1}
         onClick={() => setOpen(false)}
-        className={`fixed inset-0 z-40 bg-slate-900/30 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
+        className={`fixed inset-0 z-40 bg-slate-900/30 backdrop-blur-sm transition-opacity duration-300 xl:hidden ${
           open ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
         }`}
       />
 
       <div
         id="mobile-menu"
-        className={`absolute left-0 right-0 top-full z-50 border-b border-slate-200 bg-white/95 shadow-soft backdrop-blur-md transition-all duration-300 md:hidden ${
+        className={`absolute left-0 right-0 top-full z-50 border-b border-slate-200 bg-white/95 shadow-soft backdrop-blur-md transition-all duration-300 xl:hidden ${
           open ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none -translate-y-3 opacity-0'
         }`}
       >
         <ul className="container-shell max-h-[75vh] overflow-y-auto py-4">
           <li className="mb-3 flex items-center justify-between gap-3 px-1">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">{t('nav.openMenu')}</p>
+            <a
+              href={telegramUrl}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="inline-flex h-9 items-center gap-1.5 rounded-lg bg-[#229ED9] px-3 text-xs font-semibold text-white transition hover:bg-[#1c8abd]"
+            >
+              <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M20.12 3.31a1.2 1.2 0 0 0-1.23-.16L3.15 9.17a1.2 1.2 0 0 0 .06 2.26l3.9 1.35 1.47 4.67a1.2 1.2 0 0 0 2.17.25l2.16-3.01 3.74 2.73a1.2 1.2 0 0 0 1.89-.74L21.3 4.46a1.2 1.2 0 0 0-1.18-1.15Zm-9.41 11.23-.58 1.6-.8-2.55 7.2-6.62-5.82 7.57Z" />
+              </svg>
+              {t('nav.joinTelegram')}
+            </a>
             <button
               type="button"
               onClick={() => setOpen(false)}
@@ -122,16 +132,6 @@ function Navbar() {
               </svg>
               {t('nav.closeMenu')}
             </button>
-          </li>
-          <li className="mb-2">
-            <a
-              href={telegramUrl}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="block w-full rounded-xl bg-accent px-4 py-3 text-left text-sm font-semibold text-slate-900 transition hover:bg-amber-500"
-            >
-              {t('nav.joinTelegram')}
-            </a>
           </li>
           <li className="mb-2">
             <button
