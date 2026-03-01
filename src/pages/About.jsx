@@ -1,5 +1,6 @@
-import Button from '../components/Button';
+﻿import Button from '../components/Button';
 import SectionHeading from '../components/SectionHeading';
+import Seo from '../components/Seo';
 import { photos } from '../assets/siteData';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -8,8 +9,13 @@ function About() {
 
   return (
     <section className="py-16">
+      <Seo
+        title={t('nav.about')}
+        description="Learn about Merkezel Burhan School's mission, values, and commitment to quality education in Dessie."
+        path="/about"
+      />
       <div className="container-shell grid items-center gap-10 lg:grid-cols-2">
-        <img src={photos.about} alt={t('about.title')} className="rounded-xl2 shadow-soft" />
+        <img src={photos.about} alt={t('about.title')} className="rounded-xl2 shadow-soft" loading="lazy" decoding="async" />
         <div>
           <SectionHeading eyebrow={t('about.eyebrow')} title={t('about.title')} description={t('about.desc')} />
           <p className="text-slate-600">{t('about.p1')}</p>

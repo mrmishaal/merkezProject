@@ -1,4 +1,4 @@
-@tailwind base;
+﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -31,6 +31,17 @@ h6 {
 img {
   max-width: 100%;
   display: block;
+}
+
+a:focus-visible,
+button:focus-visible,
+[role='button']:focus-visible {
+  outline: 2px solid #1e3a8a;
+  outline-offset: 2px;
+}
+
+.skip-link {
+  transition: transform 0.2s ease;
 }
 
 .container-shell {

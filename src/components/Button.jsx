@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-function Button({ children, to, href, variant = 'primary', className = '' }) {
+function Button({ children, to, href, target, rel, variant = 'primary', className = '' }) {
   const baseClasses =
     'inline-flex items-center justify-center rounded-xl px-6 py-3 text-sm font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2';
 
@@ -23,8 +23,15 @@ function Button({ children, to, href, variant = 'primary', className = '' }) {
     );
   }
 
+  const isExternal = typeof href === 'string' && /^https?:\/\//i.test(href);
+
   return (
-    <a href={href || '#'} className={classes}>
+    <a
+      href={href || '#'}
+      target={target || (isExternal ? '_blank' : undefined)}
+      rel={rel || (isExternal ? 'noreferrer noopener' : undefined)}
+      className={classes}
+    >
       {children}
     </a>
   );
