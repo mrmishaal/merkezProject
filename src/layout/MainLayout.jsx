@@ -2,7 +2,6 @@
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import TelegramFloatButton from '../components/TelegramFloatButton';
-import QuickActions from '../components/QuickActions';
 import { useLanguage } from '../context/LanguageContext';
 
 function MainLayout() {
@@ -20,7 +19,6 @@ function MainLayout() {
       <main id="main-content" tabIndex="-1">
         <Outlet />
       </main>
-      <QuickActions />
       <TelegramFloatButton />
       <Footer />
     </>

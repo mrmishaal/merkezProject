@@ -5,6 +5,10 @@ import programs from './optimized/photo_83_2026-02-28_04-12-00.webp';
 import news1 from './optimized/news1.webp';
 import news2 from './optimized/news2.webp';
 import news3 from './optimized/news3.webp';
+import academicKg from './photos/KG/photo_30_2026-02-28_04-12-41.jpg';
+import academicLab from './photos/labulatories/photo_22_2026-02-28_04-12-41.jpg';
+import academicLibrary from './photos/library/photo_87_2026-02-28_04-12-00.jpg';
+import academicExam from './photos/studentsAtExam/photo_31_2026-02-28_04-11-59.jpg';
 
 export const telegramUrl = 'https://t.me/merkezelburhanschool';
 
@@ -38,6 +42,29 @@ export const programsList = [
     title: 'Secondary',
     description:
       'Rigorous preparation in sciences, humanities, and technology for national exams and university pathways.',
+  },
+];
+
+export const academicsGallery = [
+  {
+    title: 'Kindergarten Learning Corners',
+    description: 'Early years classrooms designed for guided play, language growth, and foundational numeracy.',
+    image: academicKg,
+  },
+  {
+    title: 'Science Practical Sessions',
+    description: 'Lab-based activities that build observation, experimentation, and critical thinking skills.',
+    image: academicLab,
+  },
+  {
+    title: 'Library Reading Support',
+    description: 'Structured reading time to strengthen comprehension, vocabulary, and independent study habits.',
+    image: academicLibrary,
+  },
+  {
+    title: 'Exam Readiness Environment',
+    description: 'Focused assessment settings that prepare students for national and internal examinations.',
+    image: academicExam,
   },
 ];
 

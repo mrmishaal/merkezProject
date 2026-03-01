@@ -24,21 +24,12 @@ function toSlug(value) {
     .replace(/^-+|-+$/g, '') || 'category';
 }
 
-function toCaption(relativePath) {
-  const fileName = relativePath.split('/').pop() || 'photo';
-  return fileName
-    .replace(/photo_/g, 'photo ')
-    .replace(/unnamed/g, 'campus moment')
-    .replace(/[_-]/g, ' ')
-    .replace(/\.[a-zA-Z]+$/, '')
-    .trim();
-}
-
 function Gallery() {
   const { t } = useLanguage();
   const navigate = useNavigate();
   const { categorySlug } = useParams();
   const [activeIndex, setActiveIndex] = useState(null);
+  const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
   const [zoom, setZoom] = useState(1);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const touchStartX = useRef(null);
@@ -50,7 +41,7 @@ function Gallery() {
         const relative = fullPath.replace('../assets/photos/', '');
         const parts = relative.split('/');
         const category = parts.length > 1 ? parts[0] : 'root';
-        return { src, category, relative, caption: toCaption(relative) };
+        return { src, category, relative };
       })
       .sort((a, b) => a.relative.localeCompare(b.relative));
   }, []);
@@ -91,34 +82,39 @@ function Gallery() {
     return [{ key: 'all', slug: 'all', label: t('gallery.all'), count: photos.length }].concat(folderCategories);
   }, [grouped, photos.length, t]);
 
+  const filterCategories = useMemo(() => {
+    return categories.filter((category) => category.key !== 'root');
+  }, [categories]);
+
   const activeCategory = useMemo(() => {
     if (!categorySlug) return 'all';
-    const matched = categories.find((category) => category.slug === categorySlug);
+    const matched = filterCategories.find((category) => category.slug === categorySlug);
     return matched ? matched.key : 'all';
-  }, [categories, categorySlug]);
+  }, [filterCategories, categorySlug]);
+
+  const activeCategoryMeta = useMemo(() => {
+    return filterCategories.find((category) => category.key === activeCategory) || filterCategories[0];
+  }, [filterCategories, activeCategory]);
 
   const visiblePhotos = useMemo(() => {
     if (activeCategory === 'all') return photos;
     return grouped[activeCategory] || [];
   }, [activeCategory, grouped, photos]);
 
-  const quickPickCategories = useMemo(() => {
-    return categories
-      .filter((category) => category.key !== 'all')
-      .sort((a, b) => b.count - a.count)
-      .slice(0, 6);
-  }, [categories]);
-
   useEffect(() => {
     if (!categorySlug) return;
-    const exists = categories.some((category) => category.slug === categorySlug);
+    const exists = filterCategories.some((category) => category.slug === categorySlug);
     if (!exists) navigate('/gallery', { replace: true });
-  }, [categories, categorySlug, navigate]);
+  }, [filterCategories, categorySlug, navigate]);
 
   useEffect(() => {
     setActiveIndex(null);
     setZoom(1);
     setIsFullscreen(false);
+  }, [activeCategory]);
+
+  useEffect(() => {
+    setIsMobileFilterOpen(false);
   }, [activeCategory]);
 
   useEffect(() => {
@@ -242,66 +238,135 @@ function Gallery() {
       <div className="container-shell">
         <SectionHeading eyebrow={t('gallery.eyebrow')} title={t('gallery.title')} description={t('gallery.desc')} />
 
-        <div className="mb-8 rounded-xl2 border border-slate-200 bg-white p-4 shadow-soft">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Gallery Filter</p>
-              <p className="mt-1 text-sm text-slate-600">
-                Showing <span className="font-semibold text-slate-900">{visiblePhotos.length}</span> photos
-                {activeCategory !== 'all' ? (
-                  <>
-                    {' '}in <span className="font-semibold text-slate-900">{formatCategoryLabel(activeCategory)}</span>
-                  </>
-                ) : null}
-              </p>
-            </div>
-            <label className="block">
-              <span className="sr-only">Choose gallery category</span>
-              <select
-                className="w-full min-w-[240px] rounded-xl border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 outline-none transition focus:border-primary sm:w-auto"
-                value={categorySlug || 'all'}
-                onChange={(event) => {
-                  const selectedSlug = event.target.value;
-                  navigate(selectedSlug === 'all' ? '/gallery' : `/gallery/${selectedSlug}`);
-                }}
-              >
-                {categories.map((category) => (
-                  <option key={category.key} value={category.slug}>
-                    {category.label} ({category.count})
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
+        <div className="mb-4 hidden sm:block">
+          <div className="rounded-xl2 border border-slate-200/90 bg-white/95 p-3 shadow-soft backdrop-blur">
+            <div className="mb-3 flex items-start justify-between gap-3">
+              <div>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500">Gallery Filter</p>
+                <p className="text-sm font-semibold text-slate-900">
+                  {activeCategoryMeta?.label || t('gallery.all')}
+                  <span className="ml-2 text-xs font-medium text-slate-500">{visiblePhotos.length} photos</span>
+                </p>
+              </div>
 
-          <div className="mt-4 flex flex-wrap gap-2">
-            <button
-              type="button"
-              onClick={() => navigate('/gallery')}
-              className={`rounded-full px-3 py-1.5 text-xs font-semibold transition ${
-                activeCategory === 'all'
-                  ? 'bg-primary text-white'
-                  : 'border border-slate-300 bg-white text-slate-700 hover:border-primary hover:text-primary'
-              }`}
-            >
-              {t('gallery.all')}
-            </button>
-            {quickPickCategories.map((category) => (
-              <button
-                key={category.key}
-                type="button"
-                onClick={() => navigate(`/gallery/${category.slug}`)}
-                className={`rounded-full px-3 py-1.5 text-xs font-semibold transition ${
-                  activeCategory === category.key
-                    ? 'bg-primary text-white'
-                    : 'border border-slate-300 bg-white text-slate-700 hover:border-primary hover:text-primary'
-                }`}
-              >
-                {category.label}
-              </button>
-            ))}
+              {activeCategory !== 'all' ? (
+                <button
+                  type="button"
+                  onClick={() => navigate('/gallery')}
+                  className="rounded-full border border-slate-300 bg-white px-3 py-1 text-xs font-semibold text-slate-700 transition hover:border-primary hover:text-primary"
+                >
+                  Show All
+                </button>
+              ) : null}
+            </div>
+
+            <div className="-mx-1 overflow-x-auto px-1 pb-1">
+              <div className="flex min-w-max items-center gap-2">
+                {filterCategories.map((category) => {
+                  const isActive = activeCategory === category.key;
+                  return (
+                    <button
+                      key={category.key}
+                      type="button"
+                      onClick={() => navigate(category.slug === 'all' ? '/gallery' : `/gallery/${category.slug}`)}
+                      className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition ${
+                        isActive
+                          ? 'border-primary bg-primary text-white shadow-soft'
+                          : 'border-slate-300 bg-white text-slate-700 hover:-translate-y-0.5 hover:border-primary hover:text-primary'
+                      }`}
+                      aria-pressed={isActive}
+                    >
+                      <span>{category.label}</span>
+                      <span
+                        className={`rounded-full px-2 py-0.5 text-[11px] ${
+                          isActive ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600'
+                        }`}
+                      >
+                        {category.count}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         </div>
+
+        <button
+          type="button"
+          onClick={() => setIsMobileFilterOpen(true)}
+          className="fixed bottom-6 left-4 z-40 inline-flex max-w-[82vw] items-center gap-2 rounded-full border border-primary/25 bg-white px-3.5 py-2 text-sm font-semibold text-primary shadow-[0_14px_26px_rgba(15,23,42,0.22)] transition hover:-translate-y-0.5 hover:border-primary sm:hidden"
+          aria-haspopup="dialog"
+          aria-label="Open gallery category filter"
+        >
+          <svg className="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+            <path d="M4 6h16M7 12h10M10 18h4" strokeLinecap="round" />
+          </svg>
+          <span className="truncate">{activeCategoryMeta?.label || 'Filter'}</span>
+          <span className="rounded-full bg-primary px-2 py-0.5 text-[11px] text-white">
+            {visiblePhotos.length}
+          </span>
+        </button>
+
+        {isMobileFilterOpen ? (
+          <div className="fixed inset-0 z-[110] sm:hidden">
+            <button
+              type="button"
+              className="absolute inset-0 bg-slate-900/55"
+              aria-label={t('gallery.close')}
+              onClick={() => setIsMobileFilterOpen(false)}
+            />
+            <div
+              role="dialog"
+              aria-modal="true"
+              aria-label="Select gallery category"
+              className="absolute inset-x-0 bottom-0 max-h-[72vh] overflow-y-auto rounded-t-2xl bg-white px-4 pb-4 pt-3 shadow-soft"
+            >
+              <div className="mx-auto mb-3 h-1.5 w-12 rounded-full bg-slate-300" />
+              <div className="mb-3 flex items-center justify-between">
+                <p className="text-sm font-semibold text-slate-900">Choose Category</p>
+                <button
+                  type="button"
+                  className="rounded-md px-2 py-1 text-xs font-semibold text-slate-600 hover:bg-slate-100"
+                  onClick={() => setIsMobileFilterOpen(false)}
+                >
+                  {t('gallery.close')}
+                </button>
+              </div>
+
+              <div className="grid grid-cols-1 gap-2 xs:grid-cols-2">
+                {filterCategories.map((category) => {
+                  const isActive = activeCategory === category.key;
+                  return (
+                    <button
+                      key={category.key}
+                      type="button"
+                      onClick={() => {
+                        navigate(category.slug === 'all' ? '/gallery' : `/gallery/${category.slug}`);
+                        setIsMobileFilterOpen(false);
+                      }}
+                      className={`flex w-full items-center justify-between rounded-lg border px-3 py-2 text-sm font-medium transition ${
+                        isActive
+                          ? 'border-primary bg-primary text-white'
+                          : 'border-slate-200 bg-white text-slate-700'
+                      }`}
+                      aria-pressed={isActive}
+                    >
+                      <span>{category.label}</span>
+                      <span
+                        className={`rounded-full px-2 py-0.5 text-xs ${
+                          isActive ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600'
+                        }`}
+                      >
+                        {category.count}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        ) : null}
 
         {visiblePhotos.length > 0 ? (
           <div className="columns-1 gap-4 sm:columns-2 lg:columns-3">
@@ -321,10 +386,6 @@ function Gallery() {
                   decoding="async"
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
-                <div className="px-3 py-2">
-                  <p className="truncate text-xs text-slate-500">{formatCategoryLabel(item.category)}</p>
-                  <p className="truncate text-sm font-medium text-slate-700">{item.caption}</p>
-                </div>
               </button>
             ))}
           </div>
@@ -410,7 +471,6 @@ function Gallery() {
               }}
               onDoubleClick={onDoubleClickZoom}
             />
-            <div className="mt-3 text-center text-sm text-white/90">{activePhoto.caption}</div>
           </div>
         </div>
       )}
