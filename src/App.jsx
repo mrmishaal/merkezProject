@@ -1,14 +1,12 @@
-﻿import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import ScrollToTop from './components/ScrollToTop';
 import MainLayout from './layout/MainLayout';
 import Home from './pages/Home';
 import About from './pages/About';
-import Academics from './pages/Academics';
 import News from './pages/News';
 import Gallery from './pages/Gallery';
 import Contact from './pages/Contact';
 import Downloads from './pages/Downloads';
-import Facilities from './pages/Facilities';
 import Events from './pages/Events';
 import NotFound from './pages/NotFound';
 
@@ -20,8 +18,8 @@ function App() {
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
-          <Route path="/academics" element={<Academics />} />
-          <Route path="/facilities" element={<Facilities />} />
+          <Route path="/academics" element={<Navigate to="/about#academics" replace />} />
+          <Route path="/facilities" element={<Navigate to="/about#facilities" replace />} />
           <Route path="/events" element={<Events />} />
           <Route path="/news" element={<News />} />
           <Route path="/gallery" element={<Gallery />} />

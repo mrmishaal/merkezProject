@@ -22,7 +22,7 @@ function Footer() {
           <h4 className="font-heading text-base font-semibold text-slate-900">{t('footer.quickLinks')}</h4>
           <ul className="mt-2 space-y-2 text-slate-600">
             <li><NavLink to="/about" className="hover:text-primary">{t('footer.about')}</NavLink></li>
-            <li><NavLink to="/academics" className="hover:text-primary">{t('footer.programs')}</NavLink></li>
+            <li><NavLink to="/about#academics" className="hover:text-primary">{t('footer.programs')}</NavLink></li>
             <li><NavLink to="/downloads" className="hover:text-primary">{t('nav.downloads')}</NavLink></li>
             <li><NavLink to="/events" className="hover:text-primary">{t('nav.events')}</NavLink></li>
           </ul>

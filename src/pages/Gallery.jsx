@@ -400,33 +400,59 @@ function Gallery() {
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/92 p-4">
           <button type="button" className="absolute inset-0" aria-label={t('gallery.close')} onClick={closeImage} />
 
-          <div className="absolute right-4 top-4 z-[103] flex flex-wrap justify-end gap-2">
-            <button type="button" className="rounded-lg bg-white/90 px-3 py-2 text-sm font-semibold text-slate-900" onClick={zoomOut} aria-label={t('gallery.zoomOut')}>
+          <button
+            type="button"
+            className="absolute right-3 top-3 z-[105] inline-flex h-10 min-w-10 items-center justify-center rounded-full bg-red-500/95 px-3 text-sm font-semibold text-white shadow-soft transition hover:bg-red-500"
+            onClick={closeImage}
+            aria-label={t('gallery.close')}
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+
+          <div className="absolute left-1/2 top-3 z-[104] hidden -translate-x-1/2 items-center gap-2 rounded-full border border-white/20 bg-slate-900/55 p-1.5 backdrop-blur md:flex">
+            <button type="button" className="rounded-lg bg-primary px-3 py-2 text-sm font-semibold text-white" onClick={zoomOut} aria-label={t('gallery.zoomOut')}>
               -
             </button>
-            <button type="button" className="rounded-lg bg-white/90 px-3 py-2 text-sm font-semibold text-slate-900" onClick={zoomIn} aria-label={t('gallery.zoomIn')}>
+            <button type="button" className="rounded-lg bg-primary px-3 py-2 text-sm font-semibold text-white" onClick={zoomIn} aria-label={t('gallery.zoomIn')}>
               +
             </button>
-            <button type="button" className="rounded-lg bg-white/90 px-3 py-2 text-sm font-semibold text-slate-900" onClick={resetZoom} aria-label={t('gallery.resetZoom')}>
+            <button type="button" className="rounded-lg bg-slate-200 px-3 py-2 text-sm font-semibold text-slate-900" onClick={resetZoom} aria-label={t('gallery.resetZoom')}>
               100%
             </button>
             <button
               type="button"
-              className="rounded-lg bg-white/90 px-3 py-2 text-sm font-semibold text-slate-900"
+              className="rounded-lg bg-accent px-3 py-2 text-sm font-semibold text-slate-900"
               onClick={toggleFullscreen}
               aria-label={isFullscreen ? t('gallery.exitFullscreen') : t('gallery.fullscreen')}
             >
               {isFullscreen ? t('gallery.exitFullscreen') : t('gallery.fullscreen')}
             </button>
-            <button type="button" className="rounded-lg bg-white/90 px-3 py-2 text-sm font-semibold text-slate-900" onClick={closeImage}>
-              {t('gallery.close')}
+          </div>
+
+          <div className="absolute bottom-20 left-1/2 z-[104] flex -translate-x-1/2 items-center gap-2 rounded-full border border-white/20 bg-slate-900/65 p-1.5 backdrop-blur md:hidden">
+            <button type="button" className="rounded-lg bg-primary px-3 py-2 text-sm font-semibold text-white" onClick={zoomOut} aria-label={t('gallery.zoomOut')}>
+              -
+            </button>
+            <button type="button" className="rounded-lg bg-primary px-3 py-2 text-sm font-semibold text-white" onClick={zoomIn} aria-label={t('gallery.zoomIn')}>
+              +
+            </button>
+            <button type="button" className="rounded-lg bg-slate-200 px-3 py-2 text-xs font-semibold text-slate-900" onClick={resetZoom} aria-label={t('gallery.resetZoom')}>
+              100%
+            </button>
+            <button
+              type="button"
+              className="rounded-lg bg-accent px-2.5 py-2 text-xs font-semibold text-slate-900"
+              onClick={toggleFullscreen}
+              aria-label={isFullscreen ? t('gallery.exitFullscreen') : t('gallery.fullscreen')}
+            >
+              F
             </button>
           </div>
 
           <button
             type="button"
-            className={`absolute left-3 top-1/2 z-[103] -translate-y-1/2 rounded-full p-3 text-slate-900 shadow-soft transition md:left-6 md:p-4 ${
-              hasPrev ? 'bg-white/95 hover:scale-105 hover:bg-white' : 'cursor-not-allowed bg-white/60 opacity-55'
+            className={`absolute left-3 top-1/2 z-[103] -translate-y-1/2 rounded-full p-3 text-white shadow-soft transition md:left-6 md:p-4 ${
+              hasPrev ? 'bg-primary/95 hover:scale-105 hover:bg-primary' : 'cursor-not-allowed bg-slate-500/70 opacity-55'
             }`}
             onClick={showPrev}
             aria-label={t('gallery.previous')}
@@ -439,8 +465,8 @@ function Gallery() {
 
           <button
             type="button"
-            className={`absolute right-3 top-1/2 z-[103] -translate-y-1/2 rounded-full p-3 text-slate-900 shadow-soft transition md:right-6 md:p-4 ${
-              hasNext ? 'bg-white/95 hover:scale-105 hover:bg-white' : 'cursor-not-allowed bg-white/60 opacity-55'
+            className={`absolute right-3 top-1/2 z-[103] -translate-y-1/2 rounded-full p-3 text-white shadow-soft transition md:right-6 md:p-4 ${
+              hasNext ? 'bg-primary/95 hover:scale-105 hover:bg-primary' : 'cursor-not-allowed bg-slate-500/70 opacity-55'
             }`}
             onClick={showNext}
             aria-label={t('gallery.next')}
@@ -451,12 +477,8 @@ function Gallery() {
             </svg>
           </button>
 
-          <div className="absolute bottom-4 left-1/2 z-[103] -translate-x-1/2 rounded-full bg-white/92 px-4 py-2 text-sm font-semibold text-slate-800 shadow-soft">
+          <div className="absolute bottom-6 left-1/2 z-[103] -translate-x-1/2 rounded-full bg-white/92 px-4 py-2 text-sm font-semibold text-slate-800 shadow-soft">
             {activeIndex + 1} / {visiblePhotos.length}
-          </div>
-
-          <div className="pointer-events-none absolute bottom-16 left-1/2 z-[103] -translate-x-1/2 rounded-full bg-slate-900/55 px-3 py-1 text-xs font-medium text-white md:hidden">
-            {t('gallery.swipeHint')}
           </div>
 
           <div className="relative z-[101] max-h-[90vh] max-w-full overflow-auto rounded-xl2 md:px-16" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd} onWheel={onWheelZoom}>

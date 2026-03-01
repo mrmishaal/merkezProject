@@ -14,8 +14,6 @@ function Navbar() {
   const links = [
     { label: t('nav.home'), to: '/' },
     { label: t('nav.about'), to: '/about' },
-    { label: t('nav.academics'), to: '/academics' },
-    { label: t('nav.facilities'), to: '/facilities' },
     { label: t('nav.events'), to: '/events' },
     { label: t('nav.news'), to: '/news' },
     { label: t('nav.gallery'), to: '/gallery' },

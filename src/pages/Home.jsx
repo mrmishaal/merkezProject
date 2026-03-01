@@ -11,8 +11,8 @@ function Home() {
 
   const pages = [
     { title: t('nav.about'), text: 'Mission, values, and school profile.', to: '/about' },
-    { title: t('nav.academics'), text: 'Programs from kindergarten to secondary.', to: '/academics' },
-    { title: t('nav.facilities'), text: 'Labs, library, transportation, and more.', to: '/facilities' },
+    { title: t('nav.academics'), text: 'Programs from kindergarten to secondary.', to: '/about#academics' },
+    { title: t('nav.facilities'), text: 'Labs, library, transportation, and more.', to: '/about#facilities' },
     { title: t('nav.events'), text: 'Upcoming and past school events.', to: '/events' },
     { title: t('nav.news'), text: 'Latest updates from school life.', to: '/news' },
     { title: t('nav.gallery'), text: 'Categorized campus photo collections.', to: '/gallery' },
@@ -28,7 +28,7 @@ function Home() {
 
       <section className="relative isolate overflow-hidden">
         <img src={photos.hero} alt={t('school.name')} className="absolute inset-0 h-full w-full object-cover" loading="eager" fetchPriority="high" />
-        <div className="absolute inset-0 bg-primary/75" aria-hidden="true" />
+        <div className="absolute inset-0 bg-primary/60" aria-hidden="true" />
         <div className="container-shell relative py-24 sm:py-32 lg:py-40">
           <div className="max-w-3xl text-white">
             <p className="mb-4 text-sm font-semibold uppercase tracking-[0.18em] text-amber-300">{t('school.name')}</p>
