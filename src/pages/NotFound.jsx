@@ -11,6 +11,7 @@ function NotFound() {
         title="404"
         description="The page you requested could not be found on Merkezel Burhan School website."
         path="/404"
+        noindex
       />
       <div className="container-shell max-w-3xl text-center">
         <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">404</p>
